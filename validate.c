@@ -44,7 +44,10 @@ void check_duplicates(const t_params *params, t_list **hash, int size)
 {
 	for (unsigned i = 0; i < params->amount; i++) {
 		int num = params->numbers[i];
-		int hash_index = num % size;
+		int hash_index = num % size - params->min;
+		if (hash_index < 0) {
+			hash_index = -hash_index;
+		}
 
 		t_list *list = hash[hash_index];
 		while (list) {

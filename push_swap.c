@@ -37,7 +37,7 @@ int main(int argc, char *argv[])
 	t_stack *stack_a;
 	t_stack *stack_b;
 
-	validate_input(argc - 1, argv + 1); // TODO: segfault for bigger negative numbers
+	validate_input(argc - 1, argv + 1);
 	stack_a = NULL;
 	stack_b = NULL;
 	int i = argc - 1;
