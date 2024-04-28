@@ -12,7 +12,6 @@ typedef struct s_params
 void check_argument_count(unsigned amount)
 {
 	if (amount < 1) {
-		printf("Error: Invalid amount of arguments\n");
 		exit(1);
 	}
 }
@@ -26,11 +25,11 @@ void convert_and_validate_input(t_params *params)
 	while (i < params->amount) {
 		num = ft_atoi(params->arr[i]);
 		if (num == 0 && params->arr[i][0] != '0') {
-			printf("Error: Invalid input (NaN)\n");
+			printf("Error\n");
 			exit(1);
 		}
 		if ((params->arr[i][0] == '-' && num > 0) || (params->arr[i][0] != '-' && num < 0)) {
-			printf("Error: Invalid input (overflow)\n");
+			printf("Error\n");
 			exit(1);
 		}
 		params->numbers[i] = num;
@@ -56,7 +55,7 @@ void check_duplicates(const t_params *params, t_list **hash, int size)
 			}
 			int *content = (int *) list->content;
 			if (*(content) == num) {
-				printf("Error: Duplicate input\n");
+				printf("Error\n");
 				exit(1);
 			}
 			list = list->next;
