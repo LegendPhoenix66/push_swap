@@ -36,14 +36,37 @@ int main(int argc, char *argv[])
 {
 	t_stack *stack_a;
 	t_stack *stack_b;
+	char **numbers;
+	int len;
+	int i;
 
-	validate_input(argc - 1, argv + 1);
 	stack_a = NULL;
 	stack_b = NULL;
-	int i = argc - 1;
-	while (i > 0) {
-		push(&stack_a, create_node(ft_atoi(argv[i])));
-		i--;
+
+	if (argc == 2) {
+		numbers = ft_split(argv[1], ' ');
+		len = 0;
+		while (numbers[len]) {
+			len++;
+		}
+	} else {
+		numbers = argv + 1;
+		len = argc - 1;
+	}
+
+	validate_input(len, numbers);
+
+	for (i = len - 1; i >= 0; i--) {
+		push(&stack_a, create_node(ft_atoi(numbers[i])));
+	}
+
+	if (argc == 2) {
+		i = 0;
+		while (numbers[i]) {
+			free(numbers[i]);
+			i++;
+		}
+		free(numbers);
 	}
 
 	sort(&stack_a, &stack_b);
