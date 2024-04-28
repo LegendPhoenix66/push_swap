@@ -14,6 +14,7 @@ num_numbers=$2
 max_lines=0
 min_lines=-1
 total_lines=0
+skipped=0
 
 # Define the function to test the program
 function test_program() {
@@ -27,7 +28,11 @@ function test_program() {
 
     # Update the max, min, and total line count
     if (( line_count > max_lines )); then
+      if ((line_count < 5500)); then
         max_lines=$line_count
+      else
+        skipped=$((skipped + 1))
+      fi
     fi
     if (( min_lines == -1 || line_count < min_lines )); then
         min_lines=$line_count
@@ -72,4 +77,5 @@ average_lines=$(echo "scale=2; $total_lines / $num_tests" | bc)
 echo "Max lines: $max_lines"
 echo "Min lines: $min_lines"
 echo "Average lines: $average_lines"
+echo "Skipped: $skipped"
 echo "Elapsed time: $elapsed_time seconds"
