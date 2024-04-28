@@ -41,21 +41,6 @@ int stack_size(t_stack *stack)
 	return size;
 }
 
-void print_stack(t_stack *stack)
-{
-	if (stack == NULL) {
-		printf("stack is empty\n");
-	} else {
-		t_stack *temp = stack;
-		while (temp->next != stack) {
-			printf("%ld\n", temp->value);
-			temp = temp->next;
-		}
-		printf("%ld\n", temp->value);
-		printf("end\n\n");
-	}
-}
-
 // sort the stack
 void sort(t_stack **stack_a, t_stack **stack_b)
 {
