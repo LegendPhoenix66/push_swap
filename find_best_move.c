@@ -110,12 +110,11 @@ t_move find_best_move(t_stack *stack_a, t_stack *stack_b)
 	t_move best_move_next = check_next(stack_a->next, stack_b, temp_move, best_move);
 	t_move best_move_previous = check_previous(stack_a->prev, stack_b, temp_move, best_move);
 
-	if (best_move_next.total_moves < temp_move.total_moves) {
+	if (best_move_next.total_moves < best_move.total_moves) {
 		best_move = best_move_next;
-	} else if (best_move_previous.total_moves < temp_move.total_moves) {
+	}
+	if (best_move_previous.total_moves < best_move.total_moves) {
 		best_move = best_move_previous;
-	} else {
-		best_move = temp_move;
 	}
 
 	return best_move;
