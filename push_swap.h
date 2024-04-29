@@ -34,6 +34,15 @@ typedef struct s_move
 	int				direction_b;
 }					t_move;
 
+typedef struct s_params
+{
+	unsigned int	amount;
+	char			**arr;
+	int				*numbers;
+	int				min;
+	int				max;
+}					t_params;
+
 t_stack				*create_node(long value);
 void				push(t_stack **stack, t_stack *new_node);
 t_stack				*pop(t_stack **stack);

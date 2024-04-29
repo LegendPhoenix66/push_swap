@@ -12,15 +12,6 @@
 
 #include "push_swap.h"
 
-typedef struct s_params
-{
-	unsigned int	amount;
-	char			**arr;
-	int				*numbers;
-	int				min;
-	int				max;
-}					t_params;
-
 void	check_argument_count(unsigned int amount)
 {
 	if (amount < 1)
