@@ -159,45 +159,17 @@ void	sort(t_stack **stack_a, t_stack **stack_b)
 		count_r = 0;
 		count_rr = 0;
 		current = *stack_a;
-		while (count_r < 1000)
+		while (!((*stack_b)->value > current->prev->value && (*stack_b)->value < current->value)
+			&& !(current->value < current->prev->value && ((*stack_b)->value > current->prev->value || (*stack_b)->value < current->value)))
 		{
-			if ((*stack_b)->value > current->prev->value
-				&& (*stack_b)->value < current->value)
-			{
-				break ;
-			}
-			else if (current->value < current->prev->value
-				&& (*stack_b)->value > current->prev->value)
-			{
-				break ;
-			}
-			else if (current->value < current->prev->value
-				&& (*stack_b)->value < current->value)
-			{
-				break ;
-			}
 			current = current->next;
 			count_r++;
 		}
 		current = *stack_a;
-		while (count_rr < 1000)
-		{
-			if ((*stack_b)->value > current->prev->value
-				&& (*stack_b)->value < current->value)
-			{
-				break ;
-			}
-			else if (current->value < current->prev->value
-				&& (*stack_b)->value > current->prev->value)
-			{
-				break ;
-			}
-			else if (current->value < current->prev->value
-				&& (*stack_b)->value < current->value)
-			{
-				break ;
-			}
-			current = current->prev;
+		while (!((*stack_b)->value > current->prev->value && (*stack_b)->value < current->value)
+			   && !(current->value < current->prev->value && ((*stack_b)->value > current->prev->value
+			   || (*stack_b)->value < current->value)))
+		{			current = current->prev;
 			count_rr++;
 		}
 		if (count_r <= count_rr)

@@ -46,43 +46,17 @@ void	check_b_rotation(const t_stack *node, t_stack *stack_b, t_move *move)
 		return ;
 	}
 	count_r = 0;
-	while (count_r < 1000)
+	while (!(node->value > current->value && node->value < current->prev->value)
+		&& !(current->value > current->prev->value && (node->value > current->value || node->value < current->prev->value)))
 	{
-		if (node->value > current->value && node->value < current->prev->value)
-		{
-			break ;
-		}
-		else if (current->value > current->prev->value
-			&& node->value > current->value)
-		{
-			break ;
-		}
-		else if (current->value > current->prev->value
-			&& node->value < current->prev->value)
-		{
-			break ;
-		}
-		current = current->next;
-		count_r++;
+	    current = current->next;
+	    count_r++;
 	}
 	count_rr = 0;
 	current = stack_b;
-	while (count_rr < 1000)
+	while (!(node->value > current->value && node->value < current->prev->value)
+		   &&!(current->value > current->prev->value && (node->value > current->value || node->value < current->prev->value)))
 	{
-		if (node->value > current->value && node->value < current->prev->value)
-		{
-			break ;
-		}
-		else if (current->value > current->prev->value
-			&& node->value > current->value)
-		{
-			break ;
-		}
-		else if (current->value > current->prev->value
-			&& node->value < current->prev->value)
-		{
-			break ;
-		}
 		current = current->prev;
 		count_rr++;
 	}
