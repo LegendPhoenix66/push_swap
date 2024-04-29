@@ -1,3 +1,15 @@
+/* ************************************************************************** */
+/*                                                                            */
+/*                                                        :::      ::::::::   */
+/*   is_sorted.c                                        :+:      :+:    :+:   */
+/*                                                    +:+ +:+         +:+     */
+/*   By: lhopp <lhopp@student.42.fr>                +#+  +:+       +#+        */
+/*                                                +#+#+#+#+#+   +#+           */
+/*   Created: 2024/04/29 11:21:47 by lhopp             #+#    #+#             */
+/*   Updated: 2024/04/29 11:21:50 by lhopp            ###   ########.fr       */
+/*                                                                            */
+/* ************************************************************************** */
+
 #include "push_swap.h"
 
 int is_sorted(t_stack *stack)
@@ -15,20 +27,19 @@ int is_sorted(t_stack *stack)
 int is_rotate_sorted(t_stack *stack)
 {
 	t_stack *temp = stack;
-	int jump_flag = 0; // flag to allow one jump in the sequence
+	int jump_flag = 0;
 
 	while (temp->next != stack) {
 		if (temp->value > temp->next->value) {
 			if (jump_flag) {
-				return 0; // if we already had a jump, return 0
+				return 0;
 			} else {
-				jump_flag = 1; // if it's the first jump, set the flag
+				jump_flag = 1;
 			}
 		}
 		temp = temp->next;
 	}
 
-	// check for a jump at the boundary
 	if (jump_flag && temp->value > stack->value) {
 		return 0;
 	}
