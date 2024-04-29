@@ -78,7 +78,8 @@ void	check_duplicates(const t_params *params, t_list **hash, int size)
 	int		*pnum;
 	t_list	*new_node;
 
-	for (unsigned i = 0; i < params->amount; i++)
+	unsigned int i = 0;
+	while (i < params->amount)
 	{
 		num = params->numbers[i];
 		hash_index = (num - params->min) % size;
@@ -105,6 +106,7 @@ void	check_duplicates(const t_params *params, t_list **hash, int size)
 		*pnum = num;
 		new_node = ft_lstnew(pnum);
 		ft_lstadd_front(&hash[hash_index], new_node);
+		i++;
 	}
 }
 
@@ -137,16 +139,20 @@ void	validate_input(unsigned int amount, char **arr)
 		fprintf(stderr, "Error: Memory allocation failed\n");
 		exit(1);
 	}
-	for (int i = 0; i < size; i++)
+	int i = 0;
+	while (i < size)
 	{
 		hash[i] = NULL;
+		i++;
 	}
 	ft_memset(hash, 0, sizeof(t_list) * size);
 	check_duplicates(&params, hash, size);
 	free(params.numbers);
-	for (int i = 0; i < size; i++)
+	int i = 0;
+	while (i < size)
 	{
 		ft_lstclear(&hash[i], free);
+		i++;
 	}
 	free(hash);
 }
