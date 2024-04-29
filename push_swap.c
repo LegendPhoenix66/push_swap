@@ -16,7 +16,6 @@
 void	print_stacks(t_stack *stack_a, t_stack *stack_b)
 {
 	t_stack	*temp;
-	t_stack	*temp;
 
 	// print the stack to verify that it was created correctly
 	printf("stack_a\n");
