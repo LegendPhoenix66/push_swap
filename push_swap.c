@@ -6,53 +6,98 @@
 /*   By: lhopp <lhopp@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/04/29 11:22:00 by lhopp             #+#    #+#             */
-/*   Updated: 2024/04/29 11:22:02 by lhopp            ###   ########.fr       */
+/*   Updated: 2024/04/29 16:57:00 by lhopp            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "push_swap.h"
 
-// initialize stacks, which are actually doubly linked lists
-int main(int argc, char *argv[])
+// remove later, just to test if the stack was created correctly
+void	print_stacks(t_stack *stack_a, t_stack *stack_b)
 {
-	t_stack *stack_a;
-	t_stack *stack_b;
-	char **numbers;
-	int len;
-	int i;
+	t_stack	*temp;
+	t_stack	*temp;
+
+	// print the stack to verify that it was created correctly
+	printf("stack_a\n");
+	if (stack_a == NULL)
+	{
+		printf("stack is empty\n");
+	}
+	else
+	{
+		temp = stack_a;
+		while (temp->next != stack_a)
+		{
+			printf("%ld\n", temp->value);
+			temp = temp->next;
+		}
+		printf("%ld\n", temp->value);
+		printf("end\n\n");
+	}
+	printf("stack_b\n");
+	if (stack_b == NULL)
+	{
+		printf("stack is empty\n");
+	}
+	else
+	{
+		temp = stack_b;
+		while (temp->next != stack_b)
+		{
+			printf("%ld\n", temp->value);
+			temp = temp->next;
+		}
+		printf("%ld\n", temp->value);
+		printf("end\n\n");
+	}
+}
+
+// initialize stacks, which are actually doubly linked lists
+int	main(int argc, char *argv[])
+{
+	t_stack	*stack_a;
+	t_stack	*stack_b;
+	char	**numbers;
+	int		len;
+	int		i;
 
 	stack_a = NULL;
 	stack_b = NULL;
-
-	if (argc == 2) {
+	if (argc == 2)
+	{
 		numbers = ft_split(argv[1], ' ');
 		len = 0;
-		while (numbers[len]) {
+		while (numbers[len])
+		{
 			len++;
 		}
-	} else {
+	}
+	else
+	{
 		numbers = argv + 1;
 		len = argc - 1;
 	}
-
 	validate_input(len, numbers);
-
-	for (i = len - 1; i >= 0; i--) {
+	for (i = len - 1; i >= 0; i--)
+	{
 		push(&stack_a, create_node(ft_atoi(numbers[i])));
 	}
-
-	if (argc == 2) {
+	if (argc == 2)
+	{
 		i = 0;
-		while (numbers[i]) {
+		while (numbers[i])
+		{
 			free(numbers[i]);
 			i++;
 		}
 		free(numbers);
 	}
-
 	sort(&stack_a, &stack_b);
-	while (stack_a) {
+	stack_b = stack_b;
+	while (stack_a)
+	{
 		free(pop(&stack_a));
 	}
-	return 0;
+	return (0);
 }
