@@ -72,5 +72,10 @@ t_move				find_best_move(t_stack *stack_a, t_stack *stack_b);
 int					stack_size(t_stack *stack);
 void	check_b_rotation(const t_stack *node, t_stack *stack_b, t_move *move);
 void	perform_best_move(t_stack **stack_a, t_stack **stack_b);
+t_list **allocate_hash(int size);
+int calculate_hash_index(int num, int min, int size);
+void clear_hash(t_list **hash, int size);
+void convert_and_validate_input(t_params *params);
+void	check_argument_count(unsigned int amount);
 
 #endif // PUSH_SWAP_H
