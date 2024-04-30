@@ -6,7 +6,7 @@
 /*   By: lhopp <lhopp@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/04/29 11:21:36 by lhopp             #+#    #+#             */
-/*   Updated: 2024/04/29 16:53:52 by lhopp            ###   ########.fr       */
+/*   Updated: 2024/04/30 12:11:32 by lhopp            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -71,14 +71,15 @@ void	convert_and_validate_input(t_params *params)
 
 void	check_duplicates(const t_params *params, t_list **hash, int size)
 {
-	int		num;
-	int		hash_index;
-	t_list	*list;
-	int		*content;
-	int		*pnum;
-	t_list	*new_node;
+	int				num;
+	int				hash_index;
+	t_list			*list;
+	int				*content;
+	int				*pnum;
+	t_list			*new_node;
+	unsigned int	i;
 
-	unsigned int i = 0;
+	i = 0;
 	while (i < params->amount)
 	{
 		num = params->numbers[i];
@@ -115,6 +116,7 @@ void	validate_input(unsigned int amount, char **arr)
 	t_params	params;
 	int			size;
 	t_list		**hash;
+	int			i;
 
 	params.amount = amount;
 	params.arr = arr;
@@ -139,7 +141,7 @@ void	validate_input(unsigned int amount, char **arr)
 		fprintf(stderr, "Error: Memory allocation failed\n");
 		exit(1);
 	}
-	int i = 0;
+	i = 0;
 	while (i < size)
 	{
 		hash[i] = NULL;
@@ -148,7 +150,7 @@ void	validate_input(unsigned int amount, char **arr)
 	ft_memset(hash, 0, sizeof(t_list) * size);
 	check_duplicates(&params, hash, size);
 	free(params.numbers);
-	int i = 0;
+	i = 0;
 	while (i < size)
 	{
 		ft_lstclear(&hash[i], free);

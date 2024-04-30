@@ -6,7 +6,7 @@
 /*   By: lhopp <lhopp@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/04/29 11:21:44 by lhopp             #+#    #+#             */
-/*   Updated: 2024/04/29 11:47:34 by lhopp            ###   ########.fr       */
+/*   Updated: 2024/04/30 11:49:52 by lhopp            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -47,15 +47,19 @@ void	check_b_rotation(const t_stack *node, t_stack *stack_b, t_move *move)
 	}
 	count_r = 0;
 	while (!(node->value > current->value && node->value < current->prev->value)
-		&& !(current->value > current->prev->value && (node->value > current->value || node->value < current->prev->value)))
+		&& !(current->value > current->prev->value
+			&& (node->value > current->value
+				|| node->value < current->prev->value)))
 	{
-	    current = current->next;
-	    count_r++;
+		current = current->next;
+		count_r++;
 	}
 	count_rr = 0;
 	current = stack_b;
 	while (!(node->value > current->value && node->value < current->prev->value)
-		   &&!(current->value > current->prev->value && (node->value > current->value || node->value < current->prev->value)))
+		&& !(current->value > current->prev->value
+			&& (node->value > current->value
+				|| node->value < current->prev->value)))
 	{
 		current = current->prev;
 		count_rr++;

@@ -6,7 +6,7 @@
 /*   By: lhopp <lhopp@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/04/29 11:22:12 by lhopp             #+#    #+#             */
-/*   Updated: 2024/04/29 16:59:20 by lhopp            ###   ########.fr       */
+/*   Updated: 2024/04/30 12:15:09 by lhopp            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -159,17 +159,23 @@ void	sort(t_stack **stack_a, t_stack **stack_b)
 		count_r = 0;
 		count_rr = 0;
 		current = *stack_a;
-		while (!((*stack_b)->value > current->prev->value && (*stack_b)->value < current->value)
-			&& !(current->value < current->prev->value && ((*stack_b)->value > current->prev->value || (*stack_b)->value < current->value)))
+		while (!((*stack_b)->value > current->prev->value
+				&& (*stack_b)->value < current->value)
+			&& !(current->value < current->prev->value
+				&& ((*stack_b)->value > current->prev->value
+					|| (*stack_b)->value < current->value)))
 		{
 			current = current->next;
 			count_r++;
 		}
 		current = *stack_a;
-		while (!((*stack_b)->value > current->prev->value && (*stack_b)->value < current->value)
-			   && !(current->value < current->prev->value && ((*stack_b)->value > current->prev->value
-			   || (*stack_b)->value < current->value)))
-		{			current = current->prev;
+		while (!((*stack_b)->value > current->prev->value
+				&& (*stack_b)->value < current->value)
+			&& !(current->value < current->prev->value
+				&& ((*stack_b)->value > current->prev->value
+					|| (*stack_b)->value < current->value)))
+		{
+			current = current->prev;
 			count_rr++;
 		}
 		if (count_r <= count_rr)
