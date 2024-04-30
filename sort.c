@@ -15,35 +15,35 @@
 // sorting 3 numbers in one stack with the fewest moves
 void	sort_3_num(t_stack **stack)
 {
-	t_stack	*temp;
+	t_stack	*node;
 	t_stack	*next;
 	t_stack	*prev;
 
-	temp = *stack;
-	next = temp->next;
-	prev = temp->prev;
-	if (temp->value > next->value && next->value > prev->value)
+	node = *stack;
+	next = node->next;
+	prev = node->prev;
+	if (node->value > next->value && next->value > prev->value)
 	{
 		rotate(stack, 1);
 		swap(stack);
 		printf("ra\nsa\n");
 	}
-	else if (temp->value > prev->value && prev->value > next->value)
+	else if (node->value > prev->value && prev->value > next->value)
 	{
 		rotate(stack, 1);
 		printf("ra\n");
 	}
-	else if (temp->value < next->value && temp->value > prev->value)
+	else if (node->value < next->value && node->value > prev->value)
 	{
 		rotate(stack, 0);
 		printf("rra\n");
 	}
-	else if (temp->value > next->value && temp->value < prev->value)
+	else if (node->value > next->value && node->value < prev->value)
 	{
 		swap(stack);
 		printf("sa\n");
 	}
-	else if (temp->value < next->value && next->value > prev->value)
+	else if (node->value < next->value && next->value > prev->value)
 	{
 		rotate(stack, 0);
 		swap(stack);
