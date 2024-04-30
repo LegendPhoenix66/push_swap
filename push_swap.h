@@ -48,7 +48,7 @@ void				push(t_stack **stack, t_stack *new_node);
 t_stack				*pop(t_stack **stack);
 void				rotate(t_stack **stack, int direction);
 void				swap(t_stack **stack);
-void				validate_input(unsigned int amount, char **arr);
+int					*validate_input(unsigned int amount, char **arr);
 void				sort(t_stack **stack_a, t_stack **stack_b);
 void				rotate_sort(t_stack **stack_a);
 int					is_sorted(t_stack *stack);

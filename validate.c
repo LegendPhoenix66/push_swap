@@ -111,7 +111,7 @@ void	check_duplicates(const t_params *params, t_list **hash, int size)
 	}
 }
 
-void	validate_input(unsigned int amount, char **arr)
+int	*validate_input(unsigned int amount, char **arr)
 {
 	t_params	params;
 	int			size;
@@ -149,7 +149,6 @@ void	validate_input(unsigned int amount, char **arr)
 	}
 	ft_memset(hash, 0, sizeof(t_list) * size);
 	check_duplicates(&params, hash, size);
-	free(params.numbers);
 	i = 0;
 	while (i < size)
 	{
@@ -157,4 +156,5 @@ void	validate_input(unsigned int amount, char **arr)
 		i++;
 	}
 	free(hash);
+	return (params.numbers);
 }
