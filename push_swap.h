@@ -40,6 +40,12 @@ typedef struct s_params
 	int				max;
 }					t_params;
 
+typedef struct s_numbers
+{
+	char **numbers;
+	int len;
+}               t_numbers;
+
 t_stack				*create_node(long value);
 void				push(t_stack **stack, t_stack *new_node);
 t_stack				*pop(t_stack **stack);

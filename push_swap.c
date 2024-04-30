@@ -12,43 +12,30 @@
 
 #include "push_swap.h"
 
-// too many lines
-// initialize stacks, which are actually circular doubly linked lists
-int	main(int argc, char *argv[])
+// get t_numbers struct with numbers as string and its length from argv
+t_numbers get_numbers(int argc, char *argv[])
 {
-	t_stack	*stack_a;
-	t_stack	*stack_b;
-	char	**numbers;
-	int		len;
-	int		i;
-	int		*integers;
-
-	stack_a = NULL;
-	stack_b = NULL;
+	t_numbers result;
 	if (argc == 2)
 	{
-		numbers = ft_split(argv[1], ' ');
-		len = 0;
-		while (numbers[len])
-		{
-			len++;
-		}
+		result.numbers = ft_split(argv[1], ' ');
+		result.len = 0;
+		while (result.numbers[result.len])
+			result.len++;
 	}
 	else
 	{
-		numbers = argv + 1;
-		len = argc - 1;
+		result.numbers = argv + 1;
+		result.len = argc - 1;
 	}
-	integers = validate_input(len, numbers);
-	i = len - 1;
-	while (i >= 0)
-	{
-		push(&stack_a, create_node(integers[i]));
-		i--;
-	}
+	return result;
+}
+
+void free_numbers(int argc, char **numbers)
+{
 	if (argc == 2)
 	{
-		i = 0;
+		int i = 0;
 		while (numbers[i])
 		{
 			free(numbers[i]);
@@ -56,9 +43,31 @@ int	main(int argc, char *argv[])
 		}
 		free(numbers);
 	}
+}
+
+void populate_stack(t_stack **stack_a, int len, int *integers)
+{
+	int i = len - 1;
+	while (i >= 0)
+	{
+		push(stack_a, create_node(integers[i]));
+		i--;
+	}
+}
+
+// too many lines
+// initialize stacks, which are actually circular doubly linked lists
+int	main(int argc, char *argv[])
+{
+	t_stack	*stack_a = NULL;
+	t_stack	*stack_b = NULL;
+	t_numbers numbers = get_numbers(argc, argv);
+	int		*integers = validate_input(numbers.len, numbers.numbers);
+
+	populate_stack(&stack_a, numbers.len, integers);
+	free_numbers(argc, numbers.numbers);
 	free(integers);
 	sort(&stack_a, &stack_b);
-	stack_b = stack_b;
 	while (stack_a)
 	{
 		free(pop(&stack_a));
