@@ -6,7 +6,7 @@
 /*   By: lhopp <lhopp@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/04/29 11:21:36 by lhopp             #+#    #+#             */
-/*   Updated: 2024/04/30 12:11:32 by lhopp            ###   ########.fr       */
+/*   Updated: 2024/04/30 16:54:17 by lhopp            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -20,6 +20,7 @@ void	check_argument_count(unsigned int amount)
 	}
 }
 
+// too many lines
 void	convert_and_validate_input(t_params *params)
 {
 	unsigned int	i;
@@ -69,6 +70,7 @@ void	convert_and_validate_input(t_params *params)
 	}
 }
 
+// too many lines
 void	check_duplicates(const t_params *params, t_list **hash, int size)
 {
 	int				num;
@@ -111,6 +113,7 @@ void	check_duplicates(const t_params *params, t_list **hash, int size)
 	}
 }
 
+// too many lines
 int	*validate_input(unsigned int amount, char **arr)
 {
 	t_params	params;

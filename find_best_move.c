@@ -6,7 +6,7 @@
 /*   By: lhopp <lhopp@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/04/29 11:21:44 by lhopp             #+#    #+#             */
-/*   Updated: 2024/04/30 11:49:52 by lhopp            ###   ########.fr       */
+/*   Updated: 2024/04/30 16:53:24 by lhopp            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -30,6 +30,7 @@ void	optimize_move(t_move *move)
 	}
 }
 
+// too many lines
 void	check_b_rotation(const t_stack *node, t_stack *stack_b, t_move *move)
 {
 	t_stack	*current;
@@ -135,6 +136,7 @@ t_move	check_previous(t_stack *node, t_stack *stack_b, t_move prev_move,
 	return (best_move);
 }
 
+// too many lines
 t_move	find_best_move(t_stack *stack_a, t_stack *stack_b)
 {
 	t_move	best_move;

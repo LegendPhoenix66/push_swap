@@ -6,12 +6,13 @@
 /*   By: lhopp <lhopp@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/04/29 11:22:00 by lhopp             #+#    #+#             */
-/*   Updated: 2024/04/30 13:39:35 by lhopp            ###   ########.fr       */
+/*   Updated: 2024/04/30 16:53:43 by lhopp            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "push_swap.h"
 
+// too many lines
 // initialize stacks, which are actually circular doubly linked lists
 int	main(int argc, char *argv[])
 {
