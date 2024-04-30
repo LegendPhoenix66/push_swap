@@ -71,5 +71,6 @@ int					is_reverse_sorted(t_stack *stack);
 t_move				find_best_move(t_stack *stack_a, t_stack *stack_b);
 int					stack_size(t_stack *stack);
 void	check_b_rotation(const t_stack *node, t_stack *stack_b, t_move *move);
+void	perform_best_move(t_stack **stack_a, t_stack **stack_b);
 
 #endif // PUSH_SWAP_H

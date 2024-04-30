@@ -8,7 +8,7 @@ CFLAGS = -Wall -Wextra -Werror -Ilibft
 HEADER = push_swap.h
 
 # Source files for the mandatory part
-SRC = push_swap.c stack_functions.c validate.c sort.c rotate_sort.c is_sorted.c find_best_move.c push.c rotate.c swap.c reverse_rotate.c find_best_move_b_utils.c
+SRC = push_swap.c stack_functions.c validate.c sort.c rotate_sort.c is_sorted.c find_best_move.c push.c rotate.c swap.c reverse_rotate.c find_best_move_b_utils.c perform_best_move.c
 
 # Name of the executable
 NAME = push_swap
