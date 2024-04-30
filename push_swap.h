@@ -6,7 +6,7 @@
 /*   By: lhopp <lhopp@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/04/29 11:22:05 by lhopp             #+#    #+#             */
-/*   Updated: 2024/04/29 11:31:11 by lhopp            ###   ########.fr       */
+/*   Updated: 2024/04/30 14:07:06 by lhopp            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -48,6 +48,17 @@ void				push(t_stack **stack, t_stack *new_node);
 t_stack				*pop(t_stack **stack);
 void				rotate(t_stack **stack, int direction);
 void				swap(t_stack **stack);
+
+void				sa(t_stack **stack_a);
+void				pa(t_stack **stack_a, t_stack **stack_b);
+void				pb(t_stack **stack_a, t_stack **stack_b);
+void				ra(t_stack **stack_a);
+void				rb(t_stack **stack_b);
+void				rr(t_stack **stack_a, t_stack **stack_b);
+void				rra(t_stack **stack_a);
+void				rrb(t_stack **stack_b);
+void				rrr(t_stack **stack_a, t_stack **stack_b);
+
 int					*validate_input(unsigned int amount, char **arr);
 void				sort(t_stack **stack_a, t_stack **stack_b);
 void				rotate_sort(t_stack **stack_a);

@@ -6,7 +6,7 @@
 /*   By: lhopp <lhopp@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/04/29 11:22:08 by lhopp             #+#    #+#             */
-/*   Updated: 2024/04/29 12:08:36 by lhopp            ###   ########.fr       */
+/*   Updated: 2024/04/30 14:22:15 by lhopp            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -35,29 +35,17 @@ void	calculate_rotations(t_stack **stack_a, int *rotate_r, int *rotate_l)
 
 int	determine_direction(int rotate_r, int rotate_l)
 {
-	if (rotate_r < rotate_l)
-	{
-		return (1);
-	}
-	else
-	{
-		return (0);
-	}
+	return (rotate_r < rotate_l);
 }
 
 void	perform_rotation(t_stack **stack_a, int direction)
 {
 	while (!is_sorted(*stack_a))
 	{
-		rotate(stack_a, direction);
 		if (direction)
-		{
-			printf("ra\n");
-		}
+			ra(stack_a);
 		else
-		{
-			printf("rra\n");
-		}
+			rra(stack_a);
 	}
 }
 

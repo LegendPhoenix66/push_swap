@@ -76,7 +76,7 @@ t_stack	*pop(t_stack **stack)
 
 void	rotate(t_stack **stack, int direction)
 {
-	if (!*stack || !(*stack)->next)
+	if (!*stack)
 	{
 		return ;
 	}
@@ -95,7 +95,7 @@ void	swap(t_stack **stack)
 	t_stack	*first;
 	t_stack	*second;
 
-	if (!*stack || !(*stack)->next)
+	if (!*stack)
 	{
 		return ;
 	}
