@@ -16,7 +16,7 @@ void	check_argument_count(unsigned int amount)
 {
 	if (amount < 1)
 	{
-		exit(1);
+		exit(0);
 	}
 }
 
@@ -47,18 +47,18 @@ void	convert_and_validate_input(t_params *params)
 		}
 		if (num == 0 && params->arr[i][0] != '0')
 		{
-			fprintf(stderr, "Error\n");
+			ft_putendl_fd("Error\n", 2);
 			exit(1);
 		}
 		if (num_len != str_len)
 		{
-			fprintf(stderr, "Error\n");
+			ft_putendl_fd("Error\n", 2);
 			exit(1);
 		}
 		if ((params->arr[i][0] == '-' && num > 0) || (params->arr[i][0] != '-'
 				&& num < 0))
 		{
-			fprintf(stderr, "Error\n");
+			ft_putendl_fd("Error\n", 2);
 			exit(1);
 		}
 		params->numbers[i] = num;
@@ -100,7 +100,7 @@ void	check_duplicates(const t_params *params, t_list **hash, int size)
 			content = (int *)list->content;
 			if (*(content) == num)
 			{
-				fprintf(stderr, "Error\n");
+				ft_putendl_fd("Error\n", 2);
 				exit(1);
 			}
 			list = list->next;
@@ -126,7 +126,7 @@ int	*validate_input(unsigned int amount, char **arr)
 	params.numbers = (int *)malloc(sizeof(int) * amount);
 	if (!params.numbers)
 	{
-		fprintf(stderr, "Error: Memory allocation failed\n");
+		ft_putendl_fd("Error: Memory allocation failed\n", 2);
 		exit(1);
 	}
 	params.min = INT_MAX;
@@ -141,7 +141,7 @@ int	*validate_input(unsigned int amount, char **arr)
 	hash = (t_list **)malloc(sizeof(t_list) * size);
 	if (!hash)
 	{
-		fprintf(stderr, "Error: Memory allocation failed\n");
+		ft_putendl_fd("Error: Memory allocation failed\n", 2);
 		exit(1);
 	}
 	i = 0;
