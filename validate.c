@@ -15,149 +15,167 @@
 void	check_argument_count(unsigned int amount)
 {
 	if (amount < 1)
-	{
 		exit(0);
-	}
 }
 
-// too many lines
-void	convert_and_validate_input(t_params *params)
+int calculate_num_len(int num)
 {
-	unsigned int	i;
-	int				num;
-	int				str_len;
-	int				num_len;
-	int				temp;
-
-	i = 0;
-	while (i < params->amount)
-	{
-		str_len = ft_strlen(params->arr[i]);
-		num = ft_atoi(params->arr[i]);
-		num_len = 0;
-		temp = num;
-		while (temp)
-		{
-			num_len++;
-			temp /= 10;
-		}
-		if (num <= 0)
-		{
-			num_len++;
-		}
-		if (num == 0 && params->arr[i][0] != '0')
-		{
-			ft_putendl_fd("Error\n", 2);
-			exit(1);
-		}
-		if (num_len != str_len)
-		{
-			ft_putendl_fd("Error\n", 2);
-			exit(1);
-		}
-		if ((params->arr[i][0] == '-' && num > 0) || (params->arr[i][0] != '-'
-				&& num < 0))
-		{
-			ft_putendl_fd("Error\n", 2);
-			exit(1);
-		}
-		params->numbers[i] = num;
-		if (num < params->min)
-			params->min = num;
-		if (num > params->max)
-			params->max = num;
-		i++;
-	}
+    int num_len = 0;
+    int temp = num;
+    while (temp)
+    {
+        num_len++;
+        temp /= 10;
+    }
+    if (num <= 0)
+        num_len++;
+    return num_len;
 }
 
-// too many lines
-void	check_duplicates(const t_params *params, t_list **hash, int size)
+void validate_num(int num, int str_len, int num_len, char *arr)
 {
-	int				num;
-	int				hash_index;
-	t_list			*list;
-	int				*content;
-	int				*pnum;
-	t_list			*new_node;
-	unsigned int	i;
-
-	i = 0;
-	while (i < params->amount)
-	{
-		num = params->numbers[i];
-		hash_index = (num - params->min) % size;
-		if (hash_index < 0)
-		{
-			hash_index = -hash_index;
-		}
-		list = hash[hash_index];
-		while (list)
-		{
-			if (!list->content)
-			{
-				break ;
-			}
-			content = (int *)list->content;
-			if (*(content) == num)
-			{
-				ft_putendl_fd("Error\n", 2);
-				exit(1);
-			}
-			list = list->next;
-		}
-		pnum = malloc(sizeof(int));
-		*pnum = num;
-		new_node = ft_lstnew(pnum);
-		ft_lstadd_front(&hash[hash_index], new_node);
-		i++;
-	}
+    if (num == 0 && arr[0] != '0')
+    {
+        ft_putendl_fd("Error\n", 2);
+        exit(1);
+    }
+    if (num_len != str_len)
+    {
+        ft_putendl_fd("Error\n", 2);
+        exit(1);
+    }
+    if ((arr[0] == '-' && num > 0) || (arr[0] != '-' && num < 0))
+    {
+        ft_putendl_fd("Error\n", 2);
+        exit(1);
+    }
 }
 
-// too many lines
-int	*validate_input(unsigned int amount, char **arr)
+void convert_and_validate_input(t_params *params)
 {
-	t_params	params;
-	int			size;
-	t_list		**hash;
-	int			i;
+    unsigned int i;
+    int num;
 
-	params.amount = amount;
-	params.arr = arr;
-	params.numbers = (int *)malloc(sizeof(int) * amount);
-	if (!params.numbers)
-	{
-		ft_putendl_fd("Error: Memory allocation failed\n", 2);
-		exit(1);
-	}
-	params.min = INT_MAX;
-	params.max = INT_MIN;
-	check_argument_count(params.amount);
-	convert_and_validate_input(&params);
-	size = params.max - params.min + 1;
-	if (size > 1000 || size <= 0)
-	{
-		size = 1000;
-	}
-	hash = (t_list **)malloc(sizeof(t_list) * size);
-	if (!hash)
-	{
-		ft_putendl_fd("Error: Memory allocation failed\n", 2);
-		exit(1);
-	}
-	i = 0;
-	while (i < size)
-	{
-		hash[i] = NULL;
-		i++;
-	}
-	ft_memset(hash, 0, sizeof(t_list) * size);
-	check_duplicates(&params, hash, size);
-	i = 0;
-	while (i < size)
-	{
-		ft_lstclear(&hash[i], free);
-		i++;
-	}
-	free(hash);
-	return (params.numbers);
+    i = 0;
+    while (i < params->amount)
+    {
+        num = ft_atoi(params->arr[i]);
+        validate_num(num, ft_strlen(params->arr[i]),
+					 calculate_num_len(num), params->arr[i]);
+        params->numbers[i] = num;
+        if (num < params->min)
+            params->min = num;
+        if (num > params->max)
+            params->max = num;
+        i++;
+    }
+}
+
+int calculate_hash_index(int num, int min, int size)
+{
+    int hash_index = (num - min) % size;
+    if (hash_index < 0)
+        hash_index = -hash_index;
+    return hash_index;
+}
+
+void check_list_content(t_list *list, int num)
+{
+    int *content;
+    while (list)
+    {
+        if (!list->content)
+            break;
+        content = (int *)list->content;
+        if (*(content) == num)
+        {
+            ft_putendl_fd("Error\n", 2);
+            exit(1);
+        }
+        list = list->next;
+    }
+}
+
+void check_duplicates(const t_params *params, t_list **hash, int size)
+{
+    int num;
+    int hash_index;
+    int *pnum;
+    unsigned int i;
+
+    i = 0;
+    while (i < params->amount)
+    {
+        num = params->numbers[i];
+        hash_index = calculate_hash_index(num, params->min, size);
+        check_list_content(hash[hash_index], num);
+        pnum = malloc(sizeof(int));
+        *pnum = num;
+        ft_lstadd_front(&hash[hash_index],  ft_lstnew(pnum));
+        i++;
+    }
+}
+
+void initialize_params(t_params *params, unsigned int amount, char **arr)
+{
+    params->amount = amount;
+    params->arr = arr;
+    params->numbers = (int *)malloc(sizeof(int) * amount);
+    if (!params->numbers)
+    {
+        ft_putendl_fd("Error: Memory allocation failed\n", 2);
+        exit(1);
+    }
+    params->min = INT_MAX;
+    params->max = INT_MIN;
+    check_argument_count(params->amount);
+    convert_and_validate_input(params);
+}
+
+t_list **allocate_hash(int size)
+{
+    t_list **hash;
+    int i;
+
+    hash = (t_list **)malloc(sizeof(t_list) * size);
+    if (!hash)
+    {
+        ft_putendl_fd("Error: Memory allocation failed\n", 2);
+        exit(1);
+    }
+    i = 0;
+    while (i < size)
+    {
+        hash[i] = NULL;
+        i++;
+    }
+    ft_memset(hash, 0, sizeof(t_list) * size);
+    return hash;
+}
+
+void clear_hash(t_list **hash, int size)
+{
+    int i = 0;
+    while (i < size)
+    {
+        ft_lstclear(&hash[i], free);
+        i++;
+    }
+    free(hash);
+}
+
+int *validate_input(unsigned int amount, char **arr)
+{
+    t_params params;
+    int size;
+    t_list **hash;
+
+    initialize_params(&params, amount, arr);
+    size = params.max - params.min + 1;
+    if (size > 1000 || size <= 0)
+        size = 1000;
+    hash = allocate_hash(size);
+    check_duplicates(&params, hash, size);
+    clear_hash(hash, size);
+    return params.numbers;
 }

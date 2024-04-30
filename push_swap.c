@@ -55,7 +55,6 @@ void populate_stack(t_stack **stack_a, int len, int *integers)
 	}
 }
 
-// too many lines
 // initialize stacks, which are actually circular doubly linked lists
 int	main(int argc, char *argv[])
 {

@@ -30,7 +30,30 @@ void	optimize_move(t_move *move)
 	}
 }
 
-// too many lines
+int count_rotations(const t_stack *node, t_stack *current, int direction)
+{
+	int count = 0;
+	while (!(node->value > current->value && node->value < current->prev->value)
+		   && !(current->value > current->prev->value
+				&& (node->value > current->value
+					|| node->value < current->prev->value)))
+	{
+		if	(direction)
+			current = current->next;
+		else
+			current = current->prev;
+		count++;
+	}
+	return count;
+}
+
+void update_move(t_move *move, int count, int direction)
+{
+	move->rotations_b = count;
+	move->direction_b = direction;
+	move->total_moves += count;
+}
+
 void	check_b_rotation(const t_stack *node, t_stack *stack_b, t_move *move)
 {
 	t_stack	*current;
@@ -39,44 +62,15 @@ void	check_b_rotation(const t_stack *node, t_stack *stack_b, t_move *move)
 
 	current = stack_b;
 	if (!current || current->next == current)
-	{
 		return ;
-	}
 	if (is_reverse_sorted(stack_b) && node->value > current->value)
-	{
 		return ;
-	}
-	count_r = 0;
-	while (!(node->value > current->value && node->value < current->prev->value)
-		&& !(current->value > current->prev->value
-			&& (node->value > current->value
-				|| node->value < current->prev->value)))
-	{
-		current = current->next;
-		count_r++;
-	}
-	count_rr = 0;
-	current = stack_b;
-	while (!(node->value > current->value && node->value < current->prev->value)
-		&& !(current->value > current->prev->value
-			&& (node->value > current->value
-				|| node->value < current->prev->value)))
-	{
-		current = current->prev;
-		count_rr++;
-	}
+	count_r = count_rotations(node, current, 1);
+	count_rr = count_rotations(node, current, 0);
 	if (count_r <= count_rr)
-	{
-		move->rotations_b = count_r;
-		move->direction_b = 1;
-		move->total_moves += count_r;
-	}
+		update_move(move, count_r, 1);
 	else
-	{
-		move->rotations_b = count_rr;
-		move->direction_b = 0;
-		move->total_moves += count_rr;
-	}
+		update_move(move, count_rr, 0);
 	optimize_move(move);
 }
 
@@ -92,19 +86,13 @@ t_move	check_next(t_stack *node, t_stack *stack_b, t_move prev_move,
 	move.rotations_b = 0;
 	move.direction_b = 1;
 	if (best_move.total_moves < move.total_moves)
-	{
 		return (best_move);
-	}
 	check_b_rotation(node, stack_b, &move);
 	if (move.total_moves < best_move.total_moves)
-	{
 		best_move = move;
-	}
 	best_move_next = check_next(node->next, stack_b, move, best_move);
 	if (best_move_next.total_moves < best_move.total_moves)
-	{
 		best_move = best_move_next;
-	}
 	return (best_move);
 }
 
@@ -120,23 +108,16 @@ t_move	check_previous(t_stack *node, t_stack *stack_b, t_move prev_move,
 	move.rotations_b = 0;
 	move.direction_b = 1;
 	if (best_move.total_moves < move.total_moves)
-	{
 		return (best_move);
-	}
 	check_b_rotation(node, stack_b, &move);
 	if (move.total_moves < best_move.total_moves)
-	{
 		best_move = move;
-	}
 	best_move_previous = check_previous(node->prev, stack_b, move, best_move);
 	if (best_move_previous.total_moves < best_move.total_moves)
-	{
 		best_move = best_move_previous;
-	}
 	return (best_move);
 }
 
-// too many lines
 t_move	find_best_move(t_stack *stack_a, t_stack *stack_b)
 {
 	t_move	best_move;
@@ -157,12 +138,8 @@ t_move	find_best_move(t_stack *stack_a, t_stack *stack_b)
 	best_move_previous = check_previous(stack_a->prev, stack_b, temp_move,
 			best_move);
 	if (best_move_next.total_moves < best_move.total_moves)
-	{
 		best_move = best_move_next;
-	}
 	if (best_move_previous.total_moves < best_move.total_moves)
-	{
 		best_move = best_move_previous;
-	}
 	return (best_move);
 }
