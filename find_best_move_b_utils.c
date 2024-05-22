@@ -1,3 +1,14 @@
+/* ************************************************************************** */
+/*                                                                            */
+/*                                                        :::      ::::::::   */
+/*   find_best_move_b_utils.c                           :+:      :+:    :+:   */
+/*                                                    +:+ +:+         +:+     */
+/*   By: lhopp <lhopp@student.42.fr>                +#+  +:+       +#+        */
+/*                                                +#+#+#+#+#+   +#+           */
+/*   Created: 2024/05/22 10:56:39 by lhopp             #+#    #+#             */
+/*   Updated: 2024/05/22 10:58:40 by lhopp            ###   ########.fr       */
+/*                                                                            */
+/* ************************************************************************** */
 
 #include "push_swap.h"
 
@@ -19,24 +30,26 @@ void	optimize_move(t_move *move)
 	}
 }
 
-int count_rotations(const t_stack *node, t_stack *current, int direction)
+int	count_rotations(const t_stack *node, t_stack *current, int direction)
 {
-	int count = 0;
+	int	count;
+
+	count = 0;
 	while (!(node->value > current->value && node->value < current->prev->value)
-		   && !(current->value > current->prev->value
-				&& (node->value > current->value
-					|| node->value < current->prev->value)))
+		&& !(current->value > current->prev->value
+			&& (node->value > current->value
+				|| node->value < current->prev->value)))
 	{
-		if	(direction)
+		if (direction)
 			current = current->next;
 		else
 			current = current->prev;
 		count++;
 	}
-	return count;
+	return (count);
 }
 
-void update_move(t_move *move, int count, int direction)
+void	update_move(t_move *move, int count, int direction)
 {
 	move->rotations_b = count;
 	move->direction_b = direction;

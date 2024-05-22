@@ -6,7 +6,7 @@
 /*   By: lhopp <lhopp@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/04/29 11:22:05 by lhopp             #+#    #+#             */
-/*   Updated: 2024/04/30 14:07:06 by lhopp            ###   ########.fr       */
+/*   Updated: 2024/05/22 10:53:55 by lhopp            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -42,9 +42,9 @@ typedef struct s_params
 
 typedef struct s_numbers
 {
-	char **numbers;
-	int len;
-}               t_numbers;
+	char			**numbers;
+	int				len;
+}					t_numbers;
 
 t_stack				*create_node(long value);
 void				push(t_stack **stack, t_stack *new_node);
@@ -70,12 +70,13 @@ int					is_rotate_sorted(t_stack *stack);
 int					is_reverse_sorted(t_stack *stack);
 t_move				find_best_move(t_stack *stack_a, t_stack *stack_b);
 int					stack_size(t_stack *stack);
-void	check_b_rotation(const t_stack *node, t_stack *stack_b, t_move *move);
-void	perform_best_move(t_stack **stack_a, t_stack **stack_b);
-t_list **allocate_hash(int size);
-int calculate_hash_index(int num, int min, int size);
-void clear_hash(t_list **hash, int size);
-void convert_and_validate_input(t_params *params);
-void	check_argument_count(unsigned int amount);
+void				check_b_rotation(const t_stack *node, t_stack *stack_b,
+						t_move *move);
+void				perform_best_move(t_stack **stack_a, t_stack **stack_b);
+t_list				**allocate_hash(int size);
+int					calculate_hash_index(int num, int min, int size);
+void				clear_hash(t_list **hash, int size);
+void				convert_and_validate_input(t_params *params);
+void				check_argument_count(unsigned int amount);
 
 #endif // PUSH_SWAP_H

@@ -1,10 +1,22 @@
+/* ************************************************************************** */
+/*                                                                            */
+/*                                                        :::      ::::::::   */
+/*   perform_best_move.c                                :+:      :+:    :+:   */
+/*                                                    +:+ +:+         +:+     */
+/*   By: lhopp <lhopp@student.42.fr>                +#+  +:+       +#+        */
+/*                                                +#+#+#+#+#+   +#+           */
+/*   Created: 2024/05/22 10:56:58 by lhopp             #+#    #+#             */
+/*   Updated: 2024/05/22 10:58:26 by lhopp            ###   ########.fr       */
+/*                                                                            */
+/* ************************************************************************** */
 
 #include "push_swap.h"
+
 void	perform_common_rotations(t_move *best_move, t_stack **stack_a,
-								 t_stack **stack_b)
+		t_stack **stack_b)
 {
 	while (best_move->direction_a == best_move->direction_b
-		   && best_move->rotations_a > 0 && best_move->rotations_b > 0)
+		&& best_move->rotations_a > 0 && best_move->rotations_b > 0)
 	{
 		if (best_move->direction_a)
 			rr(stack_a, stack_b);
