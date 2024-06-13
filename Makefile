@@ -14,7 +14,7 @@ BONUS_HEADER = checker.h
 SRC = push_swap.c stack_functions.c validate.c sort.c rotate_sort.c is_sorted.c find_best_move.c push.c rotate.c swap.c reverse_rotate.c find_best_move_b_utils.c perform_best_move.c validate_utils.c hash_utils.c
 
 # Bonus source files
-BONUS_SRC = checker.c stack_functions.c validate.c is_sorted.c push.c rotate.c swap.c reverse_rotate.c validate_utils.c hash_utils.c get_next_line.c
+BONUS_SRC = checker.c stack_functions.c finish.c validate.c is_sorted.c push.c rotate.c swap.c reverse_rotate.c validate_utils.c hash_utils.c get_next_line.c
 
 # Name of the executable
 NAME = push_swap

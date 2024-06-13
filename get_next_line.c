@@ -3,102 +3,115 @@
 /*                                                        :::      ::::::::   */
 /*   get_next_line.c                                    :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: lhopp <lhopp@student.42.fr>                +#+  +:+       +#+        */
+/*   By: jhoddy <jhoddy@student.42luxembourg.lu>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2024/03/04 12:19:16 by lhopp             #+#    #+#             */
-/*   Updated: 2024/03/04 16:53:34 by lhopp            ###   ########.fr       */
+/*   Created: 2024/03/07 10:00:28 by jhoddy            #+#    #+#             */
+/*   Updated: 2024/05/09 19:47:45 by jhoddy           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "checker.h"
-#define MAX_FD 1024
-#define BUFFER_SIZE 1024
+#include "libft.h"
 
-void	append_line(char **line, const char *buffer)
+static char	*extract_line(char *line)
 {
-	int		i;
-	int		j;
-	int		old_length;
-	char	*new_line;
+	char	*next_line;
+	size_t	i;
+	size_t	line_buffer;
 
-	old_length = 0;
+	if (!line)
+		return (NULL);
 	i = 0;
-	j = 0;
-	while (buffer[i] != '\n' && buffer[i] != '\0')
+	line_buffer = ft_strlen(line);
+	while (line[i] != '\n' && line[i] != '\0')
 		i++;
-	if (buffer[i] == '\n')
+	if (line[i] == '\n')
 		i++;
-	if (*line != NULL)
-		old_length = (int) ft_strlen(*line);
-	new_line = malloc(sizeof(char) * (old_length + i + 1));
-	if (new_line == NULL)
-		return ;
-	if (*line != NULL)
+	next_line = ft_substr(line, i, line_buffer);
+	if (!next_line || next_line[0] == '\0')
 	{
-		ft_strlcpy(new_line, *line, old_length + 1);
-		free(*line);
+		if (next_line[0] == '\0')
+			free(next_line);
+		next_line = NULL;
 	}
-	while (j < i)
-	{
-		new_line[old_length + j] = buffer[j];
-		j++;
-	}
-	new_line[old_length + j] = '\0';
-	*line = new_line;
+	free(line);
+	return (next_line);
 }
 
-int	read_buffer(int fd, char **buffer)
+static char	*get_line(char *line)
 {
-	ssize_t	bytes_read;
+	size_t	line_len;
+	size_t	i;
+	char	*cpy;
 
-	if (*buffer == NULL)
-		*buffer = malloc(BUFFER_SIZE + 1);
-	if (*buffer == NULL)
-		return (0);
-	bytes_read = read(fd, *buffer, BUFFER_SIZE);
-	if (bytes_read <= 0)
+	if (!line)
+		return (NULL);
+	line_len = 0;
+	while (line[line_len] != '\n' && line[line_len] != '\0')
+		line_len++;
+	if (line[line_len] == '\n')
+		line_len++;
+	cpy = malloc(line_len + 1);
+	if (!cpy)
+		return (NULL);
+	i = 0;
+	while (i < line_len)
 	{
-		free(*buffer);
-		*buffer = NULL;
-		return (0);
+		cpy[i] = line[i];
+		i++;
 	}
-	(*buffer)[bytes_read] = '\0';
-	return (1);
+	cpy[i] = '\0';
+	return (cpy);
+}
+
+static char	*read_buffer(int fd, char *store, char *buffer)
+{
+	ssize_t	byte_num;
+	char	*tmp;
+
+	byte_num = 1;
+	while (!ft_strchr(store, '\n') && byte_num != 0)
+	{
+		byte_num = read(fd, buffer, BUFFER_SIZE);
+		if (byte_num < 0)
+		{
+			free(store);
+			return (NULL);
+		}
+		else if (byte_num == 0)
+			return (store);
+		buffer[byte_num] = '\0';
+		tmp = store;
+		store = ft_strjoin(tmp, buffer);
+		free(tmp);
+	}
+	return (store);
 }
 
 char	*get_next_line(int fd)
 {
-	static char	*buffer[MAX_FD];
-	char		*line;
-	char const	*new_line_character;
-	int			read_success;
+	static char	*line;
+	char		*one_line;
+	char		*buffer;
+	char		*store;
 
-	line = NULL;
-	if (fd >= 0 && fd < MAX_FD)
+	if (fd < 0 || BUFFER_SIZE <= 0)
+		return (NULL);
+	buffer = malloc(BUFFER_SIZE + 1);
+	if (!buffer)
+		return (NULL);
+	if (!line)
+		store = ft_strdup("");
+	else
+		store = line;
+	line = read_buffer(fd, store, buffer);
+	free(buffer);
+	if (!line || line[0] == '\0')
 	{
-		while (1)
-		{
-			if (buffer[fd] == NULL || ft_strlen(buffer[fd]) <= 0)
-			{
-				read_success = read_buffer(fd, &buffer[fd]);
-				if (read_success == 0)
-					return (line);
-			}
-			new_line_character = ft_strchr(buffer[fd], '\n');
-			if (new_line_character != NULL)
-			{
-				append_line(&line, buffer[fd]);
-				ft_memmove(buffer[fd], new_line_character + 1,
-						   ft_strlen(new_line_character));
-				return (line);
-			}
-			else
-			{
-				append_line(&line, buffer[fd]);
-				free(buffer[fd]);
-				buffer[fd] = NULL;
-			}
-		}
+		if (line[0] == '\0')
+			free(line);
+		line = NULL;
 	}
-	return (line);
+	one_line = get_line(line);
+	line = extract_line(line);
+	return (one_line);
 }
