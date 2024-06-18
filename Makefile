@@ -11,7 +11,7 @@ HEADER = push_swap.h
 BONUS_HEADER = checker.h
 
 # Source files for the mandatory part
-SRC = push_swap.c stack_functions.c validate.c sort.c rotate_sort.c is_sorted.c find_best_move.c push.c rotate.c swap.c reverse_rotate.c find_best_move_b_utils.c perform_best_move.c validate_utils.c hash_utils.c
+SRC = push_swap.c stack_functions.c validate.c sort.c rotate_sort.c is_sorted.c find_best_move.c push.c rotate.c swap.c reverse_rotate.c find_best_move_utils.c perform_best_move.c validate_utils.c hash_utils.c
 
 # Bonus source files
 BONUS_SRC = checker.c stack_functions.c finish.c validate.c is_sorted.c push.c rotate.c swap.c reverse_rotate.c validate_utils.c hash_utils.c get_next_line.c

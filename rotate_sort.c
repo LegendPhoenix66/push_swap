@@ -44,8 +44,9 @@ void	perform_rotation(t_stack **stack_a, int direction)
 	{
 		if (direction)
 			ra(stack_a);
-		else
+		else {
 			rra(stack_a);
+		}
 	}
 }
 

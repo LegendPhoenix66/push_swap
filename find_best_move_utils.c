@@ -35,10 +35,10 @@ int	count_rotations(const t_stack *node, t_stack *current, int direction)
 	int	count;
 
 	count = 0;
-	while (!(node->value > current->value && node->value < current->prev->value)
-		&& !(current->value > current->prev->value
-			&& (node->value > current->value
-				|| node->value < current->prev->value)))
+	while (!(node->value < current->value && node->value > current->prev->value)
+		   && !(current->value < current->prev->value
+				&& (node->value < current->value
+					|| node->value > current->prev->value)))
 	{
 		if (direction)
 			current = current->next;
@@ -51,21 +51,21 @@ int	count_rotations(const t_stack *node, t_stack *current, int direction)
 
 void	update_move(t_move *move, int count, int direction)
 {
-	move->rotations_b = count;
-	move->direction_b = direction;
+	move->rotations_a = count;
+	move->direction_a = direction;
 	move->total_moves += count;
 }
 
-void	check_b_rotation(const t_stack *node, t_stack *stack_b, t_move *move)
+void	check_a_rotation(const t_stack *node, t_stack *stack_a, t_move *move)
 {
 	t_stack	*current;
 	int		count_r;
 	int		count_rr;
 
-	current = stack_b;
+	current = stack_a;
 	if (!current || current->next == current)
 		return ;
-	if (is_reverse_sorted(stack_b) && node->value > current->value)
+	if (is_reverse_sorted(stack_a) && node->value > current->value)
 		return ;
 	count_r = count_rotations(node, current, 1);
 	count_rr = count_rotations(node, current, 0);

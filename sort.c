@@ -57,46 +57,58 @@ int	stack_size(t_stack *stack)
 	return (size);
 }
 
-int	calculate_rotation_count(t_stack **stack_a, t_stack **stack_b,
-		int direction)
+t_stack *find_smallest_above(t_stack **stack, int value)
 {
-	int		count;
-	t_stack	*current;
+	t_stack *temp = *stack;
+	t_stack *smallest_above = NULL;
 
-	count = 0;
-	current = *stack_a;
-	while (!((*stack_b)->value > current->prev->value
-			&& (*stack_b)->value < current->value)
-		&& !(current->value < current->prev->value
-			&& ((*stack_b)->value > current->prev->value
-				|| (*stack_b)->value < current->value)))
-	{
-		if (direction)
-			current = current->next;
-		else
-			current = current->prev;
-		count++;
-	}
-	return (count);
+	do {
+		if (temp->value > value && (!smallest_above || temp->value < smallest_above->value)) {
+			smallest_above = temp;
+		}
+		temp = temp->next;
+	} while (temp != *stack);
+
+	return smallest_above;
 }
 
-void	empty_stack_b(t_stack **stack_a, t_stack **stack_b)
+t_stack *find_smallest(t_stack **stack)
 {
-	int	count_r;
-	int	count_rr;
+	t_stack *temp = *stack;
+	t_stack *smallest = temp;
 
-	while (*stack_b)
-	{
-		count_r = calculate_rotation_count(stack_a, stack_b, 1);
-		count_rr = calculate_rotation_count(stack_a, stack_b, 0);
-		if (count_r <= count_rr)
-			while (count_r--)
-				ra(stack_a);
-		else
-			while (count_rr--)
-				rra(stack_a);
-		pa(stack_a, stack_b);
+	do {
+		if (temp->value < smallest->value) {
+			smallest = temp;
+		}
+		temp = temp->next;
+	} while (temp != *stack);
+
+	return smallest;
+}
+
+int empty_stack_a(t_stack **stack_a, t_stack **stack_b, int stack_a_size)
+{
+	int temp;
+	t_stack *temp_node = find_smallest(stack_a);
+	for (int i = 0; i < stack_a_size / 2; i++) {
+		temp_node = find_smallest_above(stack_a, temp_node->value);
 	}
+
+	temp = temp_node->value;
+	while (stack_a_size > 3 && !is_rotate_sorted(*stack_a))
+	{
+		if ((*stack_a)->value > temp)
+		{
+			pb(stack_a, stack_b);
+		}
+		else {
+			pb(stack_a, stack_b);
+			rb(stack_b);
+		}
+		stack_a_size--;
+	}
+	return stack_a_size;
 }
 
 // sort the stack
@@ -114,14 +126,11 @@ void	sort(t_stack **stack_a, t_stack **stack_b)
 		rotate_sort(stack_a);
 	if (is_sorted(*stack_a))
 		return ;
-	while (stack_a_size > 3 && !is_rotate_sorted(*stack_a))
-	{
-		perform_best_move(stack_a, stack_b);
-		stack_a_size--;
-	}
+	stack_a_size = empty_stack_a(stack_a, stack_b, stack_a_size);
 	if (stack_a_size == 3)
 		sort_3_num(stack_a);
-	empty_stack_b(stack_a, stack_b);
+	while (*stack_b)
+		perform_best_move(stack_a, stack_b);
 	while (!is_sorted(*stack_a))
 		rotate_sort(stack_a);
 }

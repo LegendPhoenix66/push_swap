@@ -33,8 +33,9 @@ void	perform_stack_a_rotations(t_move *best_move, t_stack **stack_a)
 	{
 		if (best_move->direction_a)
 			ra(stack_a);
-		else
+		else {
 			rra(stack_a);
+		}
 		best_move->rotations_a--;
 	}
 }
@@ -59,5 +60,5 @@ void	perform_best_move(t_stack **stack_a, t_stack **stack_b)
 	perform_common_rotations(&best_move, stack_a, stack_b);
 	perform_stack_a_rotations(&best_move, stack_a);
 	perform_stack_b_rotations(&best_move, stack_b);
-	pb(stack_a, stack_b);
+	pa(stack_a, stack_b);
 }
