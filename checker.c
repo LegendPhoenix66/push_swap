@@ -80,6 +80,11 @@ int	main(int argc, char *argv[])
 	if (numbers.len == 0)
 		return (0);
 	integers = validate_input(numbers.len, numbers.numbers);
+	if (!integers)
+	{
+		free_numbers(argc, numbers.numbers);
+		return (1);
+	}
 	populate_stack(&stack_a, numbers.len, integers);
 	free_numbers(argc, numbers.numbers);
 	free(integers);

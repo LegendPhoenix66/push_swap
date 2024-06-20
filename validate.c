@@ -50,7 +50,7 @@ void	check_duplicates(const t_params *params, t_list **hash, int size)
 	}
 }
 
-void	initialize_params(t_params *params, unsigned int amount, char **arr)
+int	initialize_params(t_params *params, unsigned int amount, char **arr)
 {
 	params->amount = amount;
 	params->arr = arr;
@@ -63,7 +63,7 @@ void	initialize_params(t_params *params, unsigned int amount, char **arr)
 	params->min = INT_MAX;
 	params->max = INT_MIN;
 	check_argument_count(params->amount);
-	convert_and_validate_input(params);
+	return (convert_and_validate_input(params));
 }
 
 int	*validate_input(unsigned int amount, char **arr)
@@ -71,8 +71,14 @@ int	*validate_input(unsigned int amount, char **arr)
 	t_params	params;
 	int			size;
 	t_list		**hash;
+	int			init_result;
 
-	initialize_params(&params, amount, arr);
+	init_result = initialize_params(&params, amount, arr);
+	if (init_result == -1)
+	{
+		free(params.numbers);
+		return (NULL);
+	}
 	size = params.max - params.min + 1;
 	if (size > 1000 || size <= 0)
 		size = 1000;

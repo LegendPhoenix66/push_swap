@@ -76,7 +76,7 @@ void				perform_best_move(t_stack **stack_a, t_stack **stack_b);
 t_list				**allocate_hash(int size);
 int					calculate_hash_index(int num, int min, int size);
 void				clear_hash(t_list **hash, int size);
-void				convert_and_validate_input(t_params *params);
+int					convert_and_validate_input(t_params *params);
 void				check_argument_count(unsigned int amount);
 t_stack				*find_smallest_above(t_stack **stack, int value);
 t_stack				*find_smallest(t_stack **stack);
