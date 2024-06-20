@@ -6,7 +6,7 @@
 /*   By: lhopp <lhopp@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/06/13 14:19:37 by lhopp             #+#    #+#             */
-/*   Updated: 2024/06/20 13:54:26 by lhopp            ###   ########.fr       */
+/*   Updated: 2024/06/20 16:13:08 by lhopp            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -66,12 +66,27 @@ void	perform_operation(char *line, t_stack **stack_a, t_stack **stack_b)
 		ft_error(stack_a, stack_b, line);
 }
 
+int	validate_and_populate_stack(t_stack **stack_a, t_numbers numbers)
+{
+	int	*integers;
+
+	integers = validate_input(numbers.len, numbers.numbers);
+	if (!integers)
+	{
+		free_numbers(numbers.len, numbers.numbers);
+		return (1);
+	}
+	populate_stack(stack_a, numbers.len, integers);
+	free_numbers(numbers.len, numbers.numbers);
+	free(integers);
+	return (0);
+}
+
 int	main(int argc, char *argv[])
 {
 	t_stack		*stack_a;
 	t_stack		*stack_b;
 	t_numbers	numbers;
-	int			*integers;
 	char		*line;
 
 	stack_a = NULL;
@@ -79,15 +94,8 @@ int	main(int argc, char *argv[])
 	numbers = get_numbers(argc, argv);
 	if (numbers.len == 0)
 		return (0);
-	integers = validate_input(numbers.len, numbers.numbers);
-	if (!integers)
-	{
-		free_numbers(argc, numbers.numbers);
+	if (validate_and_populate_stack(&stack_a, numbers) == 1)
 		return (1);
-	}
-	populate_stack(&stack_a, numbers.len, integers);
-	free_numbers(argc, numbers.numbers);
-	free(integers);
 	line = get_next_line(1);
 	while (line)
 	{
