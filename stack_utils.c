@@ -6,7 +6,7 @@
 /*   By: lhopp <lhopp@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/06/20 13:00:13 by lhopp             #+#    #+#             */
-/*   Updated: 2024/06/20 13:00:47 by lhopp            ###   ########.fr       */
+/*   Updated: 2024/06/20 15:47:23 by lhopp            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -52,16 +52,18 @@ t_stack	*find_smallest(t_stack **stack)
 {
 	t_stack	*temp;
 	t_stack	*smallest;
+	int		first_pass;
 
+	first_pass = 1;
 	temp = *stack;
 	smallest = temp;
-	while (temp != *stack || smallest == temp)
+	while (first_pass || temp != *stack)
 	{
 		if (temp->value < smallest->value)
-		{
 			smallest = temp;
-		}
 		temp = temp->next;
+		if (temp == *stack)
+			first_pass = 0;
 	}
 	return (smallest);
 }
