@@ -6,83 +6,62 @@
 /*   By: lhopp <lhopp@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/06/13 14:19:37 by lhopp             #+#    #+#             */
-/*   Updated: 2024/06/13 15:15:03 by lhopp            ###   ########.fr       */
+/*   Updated: 2024/06/20 13:54:26 by lhopp            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "checker.h"
 
-t_numbers	get_numbers(int argc, char *argv[])
+void	perform_rotate_operation(char *line, t_stack **stack_a,
+		t_stack **stack_b)
 {
-	t_numbers	result;
-
-	if (argc == 2)
+	if (ft_strncmp(line, "rra", 3) == 0)
+		rotate(stack_a, 0);
+	else if (ft_strncmp(line, "rrb", 3) == 0)
+		rotate(stack_b, 0);
+	else if (ft_strncmp(line, "rrr", 3) == 0)
 	{
-		result.numbers = ft_split(argv[1], ' ');
-		result.len = 0;
-		while (result.numbers[result.len])
-			result.len++;
+		rotate(stack_a, 0);
+		rotate(stack_b, 0);
+	}
+	else if (ft_strncmp(line, "ra", 2) == 0)
+		rotate(stack_a, 1);
+	else if (ft_strncmp(line, "rb", 2) == 0)
+		rotate(stack_b, 1);
+	else if (ft_strncmp(line, "rr", 2) == 0)
+	{
+		rotate(stack_a, 1);
+		rotate(stack_b, 1);
 	}
 	else
-	{
-		result.numbers = argv + 1;
-		result.len = argc - 1;
-	}
-	return (result);
-}
-
-void	free_numbers(int argc, char **numbers)
-{
-	int	i;
-
-	if (argc == 2)
-	{
-		i = 0;
-		while (numbers[i])
-		{
-			free(numbers[i]);
-			i++;
-		}
-		free(numbers);
-	}
-}
-
-void	populate_stack(t_stack **stack_a, int len, int *integers)
-{
-	int	i;
-
-	i = len - 1;
-	while (i >= 0)
-	{
-		push(stack_a, create_node(integers[i]));
-		i--;
-	}
+		ft_error(stack_a, stack_b);
 }
 
 void	perform_operation(char *line, t_stack **stack_a, t_stack **stack_b)
 {
 	if (ft_strncmp(line, "sa", 2) == 0)
-		sa(stack_a);
+		swap(stack_a);
 	else if (ft_strncmp(line, "sb", 2) == 0)
-		sb(stack_b);
+		swap(stack_b);
 	else if (ft_strncmp(line, "ss", 2) == 0)
-		ss(stack_a, stack_b);
+	{
+		swap(stack_a);
+		swap(stack_b);
+	}
 	else if (ft_strncmp(line, "pa", 2) == 0)
-		pa(stack_a, stack_b);
+	{
+		if (!*stack_b)
+			return ;
+		push(stack_a, pop(stack_b));
+	}
 	else if (ft_strncmp(line, "pb", 2) == 0)
-		pb(stack_a, stack_b);
-	else if (ft_strncmp(line, "ra", 2) == 0)
-		ra(stack_a);
-	else if (ft_strncmp(line, "rb", 2) == 0)
-		rb(stack_b);
-	else if (ft_strncmp(line, "rr", 2) == 0)
-		rr(stack_a, stack_b);
-	else if (ft_strncmp(line, "rra", 3) == 0)
-		rra(stack_a);
-	else if (ft_strncmp(line, "rrb", 3) == 0)
-		rrb(stack_b);
-	else if (ft_strncmp(line, "rrr", 3) == 0)
-		rrr(stack_a, stack_b);
+	{
+		if (!*stack_a)
+			return ;
+		push(stack_b, pop(stack_a));
+	}
+	else if (line[0] == 'r')
+		perform_rotate_operation(line, stack_a, stack_b);
 	else
 		ft_error(stack_a, stack_b);
 }
@@ -98,6 +77,8 @@ int	main(int argc, char *argv[])
 	stack_a = NULL;
 	stack_b = NULL;
 	numbers = get_numbers(argc, argv);
+	if (numbers.len == 0)
+		return (0);
 	integers = validate_input(numbers.len, numbers.numbers);
 	populate_stack(&stack_a, numbers.len, integers);
 	free_numbers(argc, numbers.numbers);

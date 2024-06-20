@@ -6,7 +6,7 @@
 /*   By: lhopp <lhopp@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/06/13 14:20:15 by lhopp             #+#    #+#             */
-/*   Updated: 2024/06/13 15:15:07 by lhopp            ###   ########.fr       */
+/*   Updated: 2024/06/20 13:55:26 by lhopp            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -31,6 +31,8 @@ typedef struct s_numbers
 t_stack				*create_node(long value);
 void				push(t_stack **stack, t_stack *new_node);
 t_stack				*pop(t_stack **stack);
+void				rotate(t_stack **stack, int direction);
+void				swap(t_stack **stack);
 
 void				sa(t_stack **stack_a);
 void				sb(t_stack **stack_b);
@@ -49,5 +51,8 @@ int					is_sorted(t_stack *stack);
 char				*get_next_line(int fd);
 void				ft_error(t_stack **stack_a, t_stack **stack_b);
 void				finish(t_stack *stack_a, t_stack *stack_b);
+t_numbers			get_numbers(int argc, char *argv[]);
+void				free_numbers(int argc, char **numbers);
+void				populate_stack(t_stack **stack_a, int len, int *integers);
 
 #endif // CHECKER_H

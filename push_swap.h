@@ -6,7 +6,7 @@
 /*   By: lhopp <lhopp@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/04/29 11:22:05 by lhopp             #+#    #+#             */
-/*   Updated: 2024/06/20 13:04:48 by lhopp            ###   ########.fr       */
+/*   Updated: 2024/06/20 13:55:23 by lhopp            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -80,5 +80,8 @@ void				convert_and_validate_input(t_params *params);
 void				check_argument_count(unsigned int amount);
 t_stack				*find_smallest_above(t_stack **stack, int value);
 t_stack				*find_smallest(t_stack **stack);
+t_numbers			get_numbers(int argc, char *argv[]);
+void				free_numbers(int argc, char **numbers);
+void				populate_stack(t_stack **stack_a, int len, int *integers);
 
 #endif // PUSH_SWAP_H

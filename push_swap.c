@@ -12,54 +12,6 @@
 
 #include "push_swap.h"
 
-// get t_numbers struct with numbers as string and its length from argv
-t_numbers	get_numbers(int argc, char *argv[])
-{
-	t_numbers	result;
-
-	if (argc == 2)
-	{
-		result.numbers = ft_split(argv[1], ' ');
-		result.len = 0;
-		while (result.numbers[result.len])
-			result.len++;
-	}
-	else
-	{
-		result.numbers = argv + 1;
-		result.len = argc - 1;
-	}
-	return (result);
-}
-
-void	free_numbers(int argc, char **numbers)
-{
-	int	i;
-
-	if (argc == 2)
-	{
-		i = 0;
-		while (numbers[i])
-		{
-			free(numbers[i]);
-			i++;
-		}
-		free(numbers);
-	}
-}
-
-void	populate_stack(t_stack **stack_a, int len, int *integers)
-{
-	int	i;
-
-	i = len - 1;
-	while (i >= 0)
-	{
-		push(stack_a, create_node(integers[i]));
-		i--;
-	}
-}
-
 // initialize stacks, which are actually circular doubly linked lists
 int	main(int argc, char *argv[])
 {
@@ -71,6 +23,8 @@ int	main(int argc, char *argv[])
 	stack_a = NULL;
 	stack_b = NULL;
 	numbers = get_numbers(argc, argv);
+	if (numbers.len == 0)
+		return (0);
 	integers = validate_input(numbers.len, numbers.numbers);
 	populate_stack(&stack_a, numbers.len, integers);
 	free_numbers(argc, numbers.numbers);

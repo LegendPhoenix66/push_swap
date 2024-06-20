@@ -11,10 +11,10 @@ HEADER = push_swap.h
 BONUS_HEADER = checker.h
 
 # Source files for the mandatory part
-SRC = push_swap.c stack_functions.c stack_utils.c validate.c sort.c rotate_sort.c is_sorted.c find_best_move.c push.c rotate.c swap.c reverse_rotate.c find_best_move_utils.c perform_best_move.c validate_utils.c hash_utils.c
+SRC = push_swap.c init_stacks.c stack_functions.c stack_utils.c validate.c sort.c rotate_sort.c is_sorted.c find_best_move.c push.c rotate.c swap.c reverse_rotate.c find_best_move_utils.c perform_best_move.c validate_utils.c hash_utils.c
 
 # Bonus source files
-BONUS_SRC = checker.c stack_functions.c finish.c validate.c is_sorted.c push.c rotate.c swap.c reverse_rotate.c validate_utils.c hash_utils.c get_next_line.c
+BONUS_SRC = checker.c init_stacks.c stack_functions.c finish.c validate.c is_sorted.c push.c rotate.c swap.c reverse_rotate.c validate_utils.c hash_utils.c get_next_line.c
 
 # Name of the executable
 NAME = push_swap
@@ -43,7 +43,7 @@ $(NAME): $(OBJS)
 #	ar rcs $(NAME) $(OBJS) $(OBJDIR)/*.o
 
 # Bonus rule
-bonus: $(BONUS_NAME)
+bonus: $(NAME) $(BONUS_NAME)
 
 $(BONUS_NAME): $(BONUS_OBJS)
 	make bonus -C libft

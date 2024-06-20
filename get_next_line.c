@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   get_next_line.c                                    :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: jhoddy <jhoddy@student.42luxembourg.lu>    +#+  +:+       +#+        */
+/*   By: lhopp <lhopp@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2024/03/07 10:00:28 by jhoddy            #+#    #+#             */
-/*   Updated: 2024/05/09 19:47:45 by jhoddy           ###   ########.fr       */
+/*   Created: 2024/03/07 10:00:28 by lhopp            #+#    #+#             */
+/*   Updated: 2024/06/20 13:46:19 by lhopp            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -71,7 +71,7 @@ static char	*read_buffer(int fd, char *store, char *buffer)
 	byte_num = 1;
 	while (!ft_strchr(store, '\n') && byte_num != 0)
 	{
-		byte_num = read(fd, buffer, BUFFER_SIZE);
+		byte_num = read(fd, buffer, 1000);
 		if (byte_num < 0)
 		{
 			free(store);
@@ -94,9 +94,9 @@ char	*get_next_line(int fd)
 	char		*buffer;
 	char		*store;
 
-	if (fd < 0 || BUFFER_SIZE <= 0)
+	if (fd < 0)
 		return (NULL);
-	buffer = malloc(BUFFER_SIZE + 1);
+	buffer = malloc(1001);
 	if (!buffer)
 		return (NULL);
 	if (!line)
