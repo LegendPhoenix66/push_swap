@@ -6,7 +6,7 @@
 /*   By: lhopp <lhopp@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/05/22 10:56:58 by lhopp             #+#    #+#             */
-/*   Updated: 2024/05/22 10:58:26 by lhopp            ###   ########.fr       */
+/*   Updated: 2024/06/20 12:21:35 by lhopp            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -33,9 +33,8 @@ void	perform_stack_a_rotations(t_move *best_move, t_stack **stack_a)
 	{
 		if (best_move->direction_a)
 			ra(stack_a);
-		else {
+		else
 			rra(stack_a);
-		}
 		best_move->rotations_a--;
 	}
 }

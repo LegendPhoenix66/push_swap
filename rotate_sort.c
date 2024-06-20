@@ -6,7 +6,7 @@
 /*   By: lhopp <lhopp@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/04/29 11:22:08 by lhopp             #+#    #+#             */
-/*   Updated: 2024/04/30 14:22:15 by lhopp            ###   ########.fr       */
+/*   Updated: 2024/06/20 12:21:30 by lhopp            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -44,9 +44,8 @@ void	perform_rotation(t_stack **stack_a, int direction)
 	{
 		if (direction)
 			ra(stack_a);
-		else {
+		else
 			rra(stack_a);
-		}
 	}
 }
 

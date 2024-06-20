@@ -6,7 +6,7 @@
 /*   By: lhopp <lhopp@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/04/29 11:22:12 by lhopp             #+#    #+#             */
-/*   Updated: 2024/04/30 16:49:54 by lhopp            ###   ########.fr       */
+/*   Updated: 2024/06/20 12:35:21 by lhopp            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -40,75 +40,32 @@ void	sort_3_num(t_stack **stack)
 	}
 }
 
-int	stack_size(t_stack *stack)
+int	empty_stack_a(t_stack **stack_a, t_stack **stack_b, int stack_a_size)
 {
-	int		size;
-	t_stack	*temp;
+	int		temp;
+	t_stack	*temp_node;
+	int		i;
 
-	if (!stack)
-		return (0);
-	size = 1;
-	temp = stack;
-	while (temp->next != stack)
+	temp_node = find_smallest(stack_a);
+	i = 0;
+	while (i < stack_a_size / 2)
 	{
-		size++;
-		temp = temp->next;
-	}
-	return (size);
-}
-
-t_stack *find_smallest_above(t_stack **stack, int value)
-{
-	t_stack *temp = *stack;
-	t_stack *smallest_above = NULL;
-
-	do {
-		if (temp->value > value && (!smallest_above || temp->value < smallest_above->value)) {
-			smallest_above = temp;
-		}
-		temp = temp->next;
-	} while (temp != *stack);
-
-	return smallest_above;
-}
-
-t_stack *find_smallest(t_stack **stack)
-{
-	t_stack *temp = *stack;
-	t_stack *smallest = temp;
-
-	do {
-		if (temp->value < smallest->value) {
-			smallest = temp;
-		}
-		temp = temp->next;
-	} while (temp != *stack);
-
-	return smallest;
-}
-
-int empty_stack_a(t_stack **stack_a, t_stack **stack_b, int stack_a_size)
-{
-	int temp;
-	t_stack *temp_node = find_smallest(stack_a);
-	for (int i = 0; i < stack_a_size / 2; i++) {
 		temp_node = find_smallest_above(stack_a, temp_node->value);
+		i++;
 	}
-
 	temp = temp_node->value;
 	while (stack_a_size > 3 && !is_rotate_sorted(*stack_a))
 	{
 		if ((*stack_a)->value > temp)
-		{
 			pb(stack_a, stack_b);
-		}
-		else {
+		else
+		{
 			pb(stack_a, stack_b);
 			rb(stack_b);
 		}
 		stack_a_size--;
 	}
-	return stack_a_size;
+	return (stack_a_size);
 }
 
 // sort the stack

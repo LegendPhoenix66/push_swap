@@ -1,12 +1,12 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   find_best_move_b_utils.c                           :+:      :+:    :+:   */
+/*   find_best_move_utils.c                             :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: lhopp <lhopp@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/05/22 10:56:39 by lhopp             #+#    #+#             */
-/*   Updated: 2024/05/22 10:58:40 by lhopp            ###   ########.fr       */
+/*   Updated: 2024/06/20 12:20:17 by lhopp            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -36,9 +36,9 @@ int	count_rotations(const t_stack *node, t_stack *current, int direction)
 
 	count = 0;
 	while (!(node->value < current->value && node->value > current->prev->value)
-		   && !(current->value < current->prev->value
-				&& (node->value < current->value
-					|| node->value > current->prev->value)))
+		&& !(current->value < current->prev->value
+			&& (node->value < current->value
+				|| node->value > current->prev->value)))
 	{
 		if (direction)
 			current = current->next;

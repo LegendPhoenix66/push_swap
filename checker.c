@@ -109,5 +109,6 @@ int	main(int argc, char *argv[])
 		free(line);
 		line = get_next_line(1);
 	}
+	free(line);
 	finish(stack_a, stack_b);
 }
