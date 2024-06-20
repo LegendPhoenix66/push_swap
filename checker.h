@@ -49,7 +49,7 @@ void				rrr(t_stack **stack_a, t_stack **stack_b);
 int					*validate_input(unsigned int amount, char **arr);
 int					is_sorted(t_stack *stack);
 char				*get_next_line(int fd);
-void				ft_error(t_stack **stack_a, t_stack **stack_b);
+void				ft_error(t_stack **stack_a, t_stack **stack_b, char *line);
 void				finish(t_stack *stack_a, t_stack *stack_b);
 t_numbers			get_numbers(int argc, char *argv[]);
 void				free_numbers(int argc, char **numbers);

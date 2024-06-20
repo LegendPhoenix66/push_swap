@@ -12,9 +12,10 @@
 
 #include "checker.h"
 
-void	ft_error(t_stack **stack_a, t_stack **stack_b)
+void	ft_error(t_stack **stack_a, t_stack **stack_b, char *line)
 {
 	ft_putendl_fd("Error", 1);
+	free(line);
 	while (*stack_a)
 		free(pop(stack_a));
 	while (*stack_b)
@@ -30,5 +31,7 @@ void	finish(t_stack *stack_a, t_stack *stack_b)
 		ft_putendl_fd("KO", 1);
 	while (stack_a)
 		free(pop(&stack_a));
+	while (stack_b)
+		free(pop(&stack_b));
 	exit(1);
 }

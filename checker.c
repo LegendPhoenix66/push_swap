@@ -34,7 +34,7 @@ void	perform_rotate_operation(char *line, t_stack **stack_a,
 		rotate(stack_b, 1);
 	}
 	else
-		ft_error(stack_a, stack_b);
+		ft_error(stack_a, stack_b, line);
 }
 
 void	perform_operation(char *line, t_stack **stack_a, t_stack **stack_b)
@@ -63,7 +63,7 @@ void	perform_operation(char *line, t_stack **stack_a, t_stack **stack_b)
 	else if (line[0] == 'r')
 		perform_rotate_operation(line, stack_a, stack_b);
 	else
-		ft_error(stack_a, stack_b);
+		ft_error(stack_a, stack_b, line);
 }
 
 int	main(int argc, char *argv[])
