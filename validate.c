@@ -12,7 +12,7 @@
 
 #include "push_swap.h"
 
-void	check_list_content(t_list *list, int num)
+int	check_list_content(t_list *list, int num)
 {
 	int	*content;
 
@@ -22,12 +22,10 @@ void	check_list_content(t_list *list, int num)
 			break ;
 		content = (int *)list->content;
 		if (*(content) == num)
-		{
-			ft_putendl_fd("Error\n", 2);
-			exit(1);
-		}
+			return (-1);
 		list = list->next;
 	}
+	return (0);
 }
 
 void	check_duplicates(const t_params *params, t_list **hash, int size)
@@ -42,7 +40,13 @@ void	check_duplicates(const t_params *params, t_list **hash, int size)
 	{
 		num = params->numbers[i];
 		hash_index = calculate_hash_index(num, params->min, size);
-		check_list_content(hash[hash_index], num);
+		if (check_list_content(hash[hash_index], num) == -1)
+		{
+			clear_hash(hash, size);
+			free(params->numbers);
+			ft_putendl_fd("Error\n", 2);
+			exit(1);
+		}
 		pnum = malloc(sizeof(int));
 		*pnum = num;
 		ft_lstadd_front(&hash[hash_index], ft_lstnew(pnum));
